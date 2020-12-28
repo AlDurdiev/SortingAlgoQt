@@ -30,6 +30,12 @@ void MainWindow::GenerateDatas()
 
     auto layoutHeight { ui->layoutBarGraph->contentsRect().height() };
 
+
+    // NOTE POUR CE SOIR : Créer un QPUSHBUTTON personnalisé qui prend en paramètre un pointeur (shared_ptr) vers le BarValue
+    //                     Faire en sorte que ce bouton change de couleur en fonction de sa sélection.
+    //                     Puis implémenter ci-dessous : le nouveau bouton créé
+    //                     Créer un signal à partir (signal) qui surveille la valeur de BarValue->selected & BarValue->done et qui emit cela lorsque c'est nécessaire
+
     for(const auto & val : generatedValues)
     {
         QPushButton* newBtn { new QPushButton() };
