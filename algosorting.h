@@ -20,7 +20,7 @@ class AlgoSorting
         void PreviousStep();
         std::vector<std::shared_ptr<BarValue<T>>> GetValues();
 
-    private:
+    protected:
         std::vector<std::shared_ptr<BarValue<T>>> initialValues;
         std::vector<std::shared_ptr<BarValue<T>>> currentValues;
         bool solvingIsRunning;

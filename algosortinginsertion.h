@@ -8,6 +8,7 @@ class AlgoSortingInsertion : public AlgoSorting<T>
 {
     public:
         AlgoSortingInsertion();
+        void Solve();
 };
 
 #endif // ALGOSORTINGINSERTION_H

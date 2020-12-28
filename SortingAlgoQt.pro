@@ -1,4 +1,5 @@
-QT       += core gui
+QT       += core gui \
+         testlib
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -12,13 +13,15 @@ SOURCES += \
     algosorting.cpp \
     algosortinginsertion.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    testalgosortinginsertion.cpp
 
 HEADERS += \
     BarValue.h \
     algosorting.h \
     algosortinginsertion.h \
-    mainwindow.h
+    mainwindow.h \
+    testalgosortinginsertion.h
 
 FORMS += \
     mainwindow.ui

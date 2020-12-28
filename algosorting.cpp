@@ -13,7 +13,7 @@ void AlgoSorting<T>::GenerateRandomValues(int nbValues, int minVal, int maxVal)
     T val { 0 };
     for(int i=0 ; i < nbValues ; i++)
     {
-        val = std::rand() % (maxVal - minVal) + minVal;
+        val = std::rand() % (maxVal - minVal + 1) + minVal;
         auto barVal { std::make_shared<BarValue<T>>(val) };
         initialValues.push_back(barVal);
         currentValues.push_back(barVal);
@@ -56,3 +56,5 @@ std::vector<std::shared_ptr<BarValue<T>>> AlgoSorting<T>::GetValues()
 {
     return currentValues;
 }
+
+template class AlgoSorting<double>;
