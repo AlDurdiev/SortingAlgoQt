@@ -13,21 +13,22 @@ class AlgoSorting : public QThread
     public:
         void GenerateRandomValues(int nbValues, int minVal, int maxVal);
         void SetValues(std::vector<std::shared_ptr<BarValueDouble>> values);
-        void Reset();
-        void Pause();
-        //virtual void Run() = 0;
-        void NextStep();
-        void PreviousStep();
         std::vector<std::shared_ptr<BarValueDouble>> GetValues();
+        bool GetSolvingIsRunning();
 
     protected:
-        std::vector<std::shared_ptr<BarValueDouble>> initialValues;
         std::vector<std::shared_ptr<BarValueDouble>> currentValues;
-        bool solvingIsRunning;
-        int resolvingSpeed;
+
+        int resolvingSpeedMs { 300 };
+        int compareSpeedMs { 50 };
+        void SetSolvingIsRunning(const bool& val);
+
+    private:
+        bool solvingIsRunning { false };
 
     signals:
-        void swapBarGUI(std::shared_ptr<BarValueDouble> from, std::shared_ptr<BarValueDouble> to);
+        void swapBarGUI(BarValueDouble* from, int index);
+        void SolvingIsRunningEvent(const bool& val);
 };
 
 

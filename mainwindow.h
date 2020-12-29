@@ -21,15 +21,15 @@ public:
 private:
     Ui::MainWindow *ui;
     AlgoSorting* algo_;
-    std::vector<BarGraphButton<double>*> buttons_;
+    std::vector<BarGraphButton*> buttons_;
 
     void UpdateView(std::vector<std::shared_ptr<BarValueDouble>> values, double minVal, double maxVal);
 
 public slots:
     void GenerateDatas();
     void LaunchAlgorithm();
-    void UpdateUIEvent();
-    void SwapUIEvent(std::shared_ptr<BarValueDouble> from, std::shared_ptr<BarValueDouble> to);
+    void SwapUIEvent(BarValueDouble* from, int index);
+    void SolvingIsRunningHandler(const bool& val);
 
 };
 #endif // MAINWINDOW_H

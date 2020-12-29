@@ -48,6 +48,15 @@ void BarValueDouble::SetDone(const bool& val)
     }
 }
 
+void BarValueDouble::SetComparedChanged(const bool& val)
+{
+    if(val != compared)
+    {
+        compared = val;
+        emit valueComparedChanged(val);
+    }
+}
+
 
 #endif
 

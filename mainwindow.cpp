@@ -18,10 +18,16 @@ MainWindow::MainWindow(AlgoSorting* algo, QWidget *parent)
     QObject::connect(algo_, &AlgoSorting::swapBarGUI,
                      this, &MainWindow::SwapUIEvent);
 
+    QObject::connect(algo_, &AlgoSorting::SolvingIsRunningEvent,
+                     this, &MainWindow::SolvingIsRunningHandler);
+
 }
 
 void MainWindow::GenerateDatas()
 {
+    if(algo_->GetSolvingIsRunning())
+        return;
+
     const auto nbValues { ui->spinNbValues->value() };
     const auto minValue { ui->spinMinValue->value() };
     const auto maxValue { ui->spinMaxValue->value() };
@@ -38,31 +44,28 @@ void MainWindow::GenerateDatas()
 
 void MainWindow::LaunchAlgorithm()
 {
-    algo_->start();
-}
+    if(algo_->GetSolvingIsRunning())
+        return;
 
-void MainWindow::UpdateUIEvent()
-{
-    //const auto minValue { ui->spinMinValue->value() };
-    //const auto maxValue { ui->spinMaxValue->value() };
-
-    //UpdateView(algo_->GetValues(), minValue, maxValue);
+    if(algo_->GetValues().size() > 0)
+        algo_->start();
 }
 
 void MainWindow::UpdateView(std::vector<std::shared_ptr<BarValueDouble>> values, double minVal, double maxVal)
 {
     // Remove old view
-    for(auto &val : buttons_)
-        ui->layoutBarGraph->removeWidget(val);
+    QLayoutItem* item;
+    while((item = ui->layoutBarGraph->takeAt(0)) != NULL)
+        delete item->widget();
 
     buttons_.clear();
 
     // Create initial bargraph
-    auto layoutHeight { ui->layoutBarGraph->contentsRect().height() };
+    auto layoutHeight { ui->graphContainer->height() };
 
     for(auto & val : values)
     {
-        BarGraphButton<double>* newBtn { new BarGraphButton<double>(val) };
+        BarGraphButton* newBtn { new BarGraphButton(val) };
 
         double calculatedHeight { (val->Data() / (maxVal - minVal)) * layoutHeight };
         if(calculatedHeight < 0)
@@ -72,34 +75,31 @@ void MainWindow::UpdateView(std::vector<std::shared_ptr<BarValueDouble>> values,
 
         buttons_.push_back(newBtn);
         ui->layoutBarGraph->addWidget(newBtn);
+
+        int size = ui->layoutBarGraph->count();
     }
 }
 
-void MainWindow::SwapUIEvent(std::shared_ptr<BarValueDouble> from, std::shared_ptr<BarValueDouble> to)
+void MainWindow::SwapUIEvent(BarValueDouble* from, int index)
 {
-    if(to->Selected())
+    // insert
+    auto fromIteWidget = std::find_if(buttons_.begin(), buttons_.end(), [&from](BarGraphButton* x){ return &(*x->Val()) == from ;});
+
+    if(fromIteWidget != buttons_.end())
+        ui->layoutBarGraph->insertWidget(index, *fromIteWidget);
+}
+
+void MainWindow::SolvingIsRunningHandler(const bool& val)
+{
+    if(val)
     {
-        // insert
-        auto fromIteWidget = std::find_if(buttons_.begin(), buttons_.end(), [&from](BarGraphButton<double>* x){ return x->Val() == from ;});
-        auto toIteWidget = std::find_if(buttons_.begin(), buttons_.end(), [&to](BarGraphButton<double>* x){ return x->Val() == to ;});
-
-        if(fromIteWidget != buttons_.end() && toIteWidget != buttons_.end())
-        {
-            int index = fromIteWidget - buttons_.begin();
-
-            //ui->layoutBarGraph->replaceWidget(*fromIteWidget, *toIteWidget);
-            ui->layoutBarGraph->insertWidget(index, *toIteWidget);
-        }
+        ui->btnGenerateRandomDatas->setEnabled(false);
+        ui->btnLaunchAlgo->setEnabled(false);
     }
-    else{
-        // swap
-        auto fromIteWidget = std::find_if(buttons_.begin(), buttons_.end(), [&from](BarGraphButton<double>* x){ return x->Val() == from ;});
-        auto toIteWidget = std::find_if(buttons_.begin(), buttons_.end(), [&to](BarGraphButton<double>* x){ return x->Val() == to ;});
-
-        if(fromIteWidget != std::end(buttons_) && toIteWidget != std::end(buttons_))
-        {
-            ui->layoutBarGraph->replaceWidget(*fromIteWidget, *toIteWidget);
-        }
+    else
+    {
+        ui->btnGenerateRandomDatas->setEnabled(true);
+        ui->btnLaunchAlgo->setEnabled(true);
     }
 }
 

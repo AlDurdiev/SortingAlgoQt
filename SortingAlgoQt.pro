@@ -12,6 +12,7 @@ CONFIG += c++11
 SOURCES += \
     AlgoSorting.cpp \
     AlgoSortingInsertion.cpp \
+    BarGraphButton.cpp \
     barvaluedouble.cpp \
     main.cpp \
     mainwindow.cpp
