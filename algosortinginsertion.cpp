@@ -24,5 +24,3 @@ void AlgoSortingInsertion<T>::Solve()
     }
 }
 
-
-template class AlgoSortingInsertion<double>;

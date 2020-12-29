@@ -6,8 +6,13 @@
 
 int main(int argc, char *argv[])
 {
+    AlgoSorting* sortingAlgo = new AlgoSortingInsertion();
+
     QApplication a(argc, argv);
-    MainWindow w;
+    MainWindow w(sortingAlgo);
     w.show();
+
     return a.exec();
+
+    delete sortingAlgo;
 }

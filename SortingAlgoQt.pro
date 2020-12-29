@@ -10,18 +10,18 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    algosorting.cpp \
-    algosortinginsertion.cpp \
+    AlgoSorting.cpp \
+    AlgoSortingInsertion.cpp \
+    barvaluedouble.cpp \
     main.cpp \
-    mainwindow.cpp \
-    testalgosortinginsertion.cpp
+    mainwindow.cpp
 
 HEADERS += \
-    BarValue.h \
     algosorting.h \
     algosortinginsertion.h \
-    mainwindow.h \
-    testalgosortinginsertion.h
+    bargraphbutton.h \
+    barvaluedouble.h \
+    mainwindow.h
 
 FORMS += \
     mainwindow.ui

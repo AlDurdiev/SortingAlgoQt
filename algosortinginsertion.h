@@ -2,13 +2,15 @@
 #define ALGOSORTINGINSERTION_H
 
 #include "algosorting.h"
+#include <QThread>
 
-template <typename T>
-class AlgoSortingInsertion : public AlgoSorting<T>
+class AlgoSortingInsertion : public AlgoSorting
 {
-    public:
-        AlgoSortingInsertion();
-        void Solve();
+
+    Q_OBJECT
+public:
+    void run() override;
+
 };
 
 #endif // ALGOSORTINGINSERTION_H
