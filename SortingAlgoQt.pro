@@ -13,13 +13,19 @@ SOURCES += \
     AlgoSorting.cpp \
     AlgoSortingInsertion.cpp \
     BarGraphButton.cpp \
+    algosortingbubble.cpp \
+    algosortingmerge.cpp \
+    algosortingselection.cpp \
     barvaluedouble.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
     algosorting.h \
+    algosortingbubble.h \
     algosortinginsertion.h \
+    algosortingmerge.h \
+    algosortingselection.h \
     bargraphbutton.h \
     barvaluedouble.h \
     mainwindow.h

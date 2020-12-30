@@ -30,7 +30,7 @@
    <widget class="QPushButton" name="btnLaunchAlgo">
     <property name="geometry">
      <rect>
-      <x>270</x>
+      <x>950</x>
       <y>10</y>
       <width>241</width>
       <height>31</height>
@@ -104,7 +104,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>220</y>
+      <y>170</y>
       <width>1189</width>
       <height>449</height>
      </rect>
@@ -120,6 +120,16 @@
      </property>
      <layout class="QHBoxLayout" name="layoutBarGraph"/>
     </widget>
+   </widget>
+   <widget class="QComboBox" name="comboBoxAlgoChoice">
+    <property name="geometry">
+     <rect>
+      <x>720</x>
+      <y>10</y>
+      <width>221</width>
+      <height>31</height>
+     </rect>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

@@ -8,18 +8,22 @@ MainWindow::MainWindow(AlgoSorting* algo, QWidget *parent)
 {
     ui->setupUi(this);
 
+    // Setup combobox algo choice
+    ui->comboBoxAlgoChoice->addItem("AlgoSortingInsertion");
+    ui->comboBoxAlgoChoice->addItem("AlgoSortingSelection");
+    ui->comboBoxAlgoChoice->addItem("AlgoSortingBubble");
+    ui->comboBoxAlgoChoice->addItem("AlgoSortingMerge");
+    ui->comboBoxAlgoChoice->addItem("AlgoSortingHeap");
+    ui->comboBoxAlgoChoice->addItem("AlgoSortingQuick");
+    ui->comboBoxAlgoChoice->setCurrentIndex(0);
+
+
+    // Connect events
     QObject::connect(ui->btnGenerateRandomDatas, &QPushButton::clicked,
                     this, &MainWindow::GenerateDatas);
 
     QObject::connect(ui->btnLaunchAlgo, &QPushButton::clicked,
                      this, &MainWindow::LaunchAlgorithm);
-
-
-    QObject::connect(algo_, &AlgoSorting::swapBarGUI,
-                     this, &MainWindow::SwapUIEvent);
-
-    QObject::connect(algo_, &AlgoSorting::SolvingIsRunningEvent,
-                     this, &MainWindow::SolvingIsRunningHandler);
 
 }
 
@@ -48,7 +52,46 @@ void MainWindow::LaunchAlgorithm()
         return;
 
     if(algo_->GetValues().size() > 0)
+    {
+        auto values = algo_->GetValues();
+        delete algo_;
+
+        switch(ui->comboBoxAlgoChoice->currentIndex())
+        {
+            case 0 :
+                algo_ = new AlgoSortingInsertion();
+                break;
+            case 1 :
+                algo_ = new AlgoSortingSelection();
+                break;
+            case 2 :
+                algo_ = new AlgoSortingBubble();
+                break;
+            case 3 :
+                algo_ = new AlgoSortingMerge();
+                break;
+            /*case 4 :
+                break;
+            case 5 :
+                break;
+            case 6 :
+                break;
+            */default:
+                return;
+                break;
+        }
+
+        algo_->SetValues(values);
+
+
+        QObject::connect(algo_, &AlgoSorting::swapBarGUI,
+                         this, &MainWindow::SwapUIEvent);
+
+        QObject::connect(algo_, &AlgoSorting::SolvingIsRunningEvent,
+                         this, &MainWindow::SolvingIsRunningHandler);
+
         algo_->start();
+    }
 }
 
 void MainWindow::UpdateView(std::vector<std::shared_ptr<BarValueDouble>> values, double minVal, double maxVal)

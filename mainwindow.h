@@ -4,7 +4,11 @@
 #include <QMainWindow>
 #include <memory>
 #include "algosortinginsertion.h"
+#include "algosortingselection.h"
+#include "algosortingbubble.h"
+#include "algosortingmerge.h"
 #include "bargraphbutton.h"
+#include <QString>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
