@@ -17,7 +17,10 @@ class AlgoSorting : public QThread
         bool GetSolvingIsRunning();
 
     protected:
-        std::vector<std::shared_ptr<BarValueDouble>> currentValues;
+        std::vector<std::shared_ptr<BarValueDouble>> currentValues; // We'll use an vector for all our algorithms.
+                                                                    // Of course, sometimes an array is faster.
+                                                                    // But the purpose of this app is for watching the algorithm in live.
+                                                                    // So we don't need to be more efficient and vector are more confortable.
 
         int resolvingSpeedMs { 300 };
         int compareSpeedMs { 50 };
@@ -28,6 +31,7 @@ class AlgoSorting : public QThread
 
     signals:
         void swapBarGUI(BarValueDouble* from, int index);
+        void refreshAllGUI();
         void SolvingIsRunningEvent(const bool& val);
 };
 

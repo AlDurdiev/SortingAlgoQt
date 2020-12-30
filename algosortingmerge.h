@@ -11,10 +11,9 @@ public:
     void run() override;
 
 private:
-    std::vector<std::shared_ptr<BarValueDouble>> sortFusion(std::vector<std::shared_ptr<BarValueDouble>> tab);
+    void sortMerge(int beginIndex, int endIndex);
 
-    std::vector<std::shared_ptr<BarValueDouble>> fusion(std::vector<std::shared_ptr<BarValueDouble>> tabA,
-                                                        std::vector<std::shared_ptr<BarValueDouble>> tabB);
+    void merge(int beginIndex, int middleIndex, int endIndex);
 
 };
 

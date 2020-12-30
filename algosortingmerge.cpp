@@ -5,47 +5,78 @@
 
 void AlgoSortingMerge::run()
 {
-    currentValues = sortFusion(currentValues);
+    sortMerge(0, currentValues.size() - 1);
+
+    for(auto & val : currentValues)
+        val->SetDone(true);
 }
 
-std::vector<std::shared_ptr<BarValueDouble>> AlgoSortingMerge::sortFusion(std::vector<std::shared_ptr<BarValueDouble>> tab)
+void AlgoSortingMerge::sortMerge(int beginIndex, int endIndex)
 {
-    if(tab.size() <= 1)
-        return tab;
-    else
+    if(endIndex > beginIndex)
     {
-        std::vector<std::shared_ptr<BarValueDouble>> partA(tab.begin(), tab.begin() + (tab.size()/2));
-        std::vector<std::shared_ptr<BarValueDouble>> partB(tab.begin() + tab.size()/2, tab.end() );
-        return fusion(sortFusion(partA), sortFusion(partB));
+        int middleIndex { beginIndex + (endIndex - beginIndex)/2 };
+        sortMerge(beginIndex, middleIndex);
+        sortMerge(middleIndex + 1, endIndex);
+
+        for(int i=beginIndex ; i < endIndex ; i++)
+            currentValues[i]->SetSelected(true);
+        emit refreshAllGUI();
+
+        QThread::msleep(resolvingSpeedMs);
+        merge(beginIndex, middleIndex, endIndex);
+        emit refreshAllGUI();
+
+        for(int i=beginIndex ; i < endIndex ; i++)
+            currentValues[i]->SetSelected(false);
     }
 }
 
-std::vector<std::shared_ptr<BarValueDouble>> AlgoSortingMerge::fusion(std::vector<std::shared_ptr<BarValueDouble>> tabA,
-                                                                        std::vector<std::shared_ptr<BarValueDouble>> tabB)
+void AlgoSortingMerge::merge(int beginIndex, int middleIndex, int endIndex)
 {
-    if(tabA.size() == 0)
-        return tabB;
-    else if(tabB.size() == 0)
-        return tabA;
-    else if(tabA[0]->Data() <= tabB[0]->Data())
+    int k { 0 };
+    int leftPartSize { middleIndex - beginIndex + 1};
+    int rightPartSize { endIndex - middleIndex };
+
+    std::vector<std::shared_ptr<BarValueDouble>> leftPart;
+    std::vector<std::shared_ptr<BarValueDouble>> rightPart;
+
+    for(int i=0 ; i < leftPartSize ; i++)
+        leftPart.push_back(currentValues[beginIndex + i]);
+    for(int i=0 ; i < rightPartSize ; i++)
+        rightPart.push_back(currentValues[middleIndex + 1 + i]);
+
+    int i { 0 };
+    int j { 0 };
+    k = beginIndex;
+
+    while(i < leftPartSize && j < rightPartSize)
     {
-        std::vector<std::shared_ptr<BarValueDouble>> solo(tabA.begin(), tabA.begin()+1);
-
-        std::vector<std::shared_ptr<BarValueDouble>> part(tabA.begin()+1, tabA.end());
-        auto fusionResult { fusion(part, tabB) };
-
-        solo.insert(solo.end(), fusionResult.begin(), fusionResult.end());
-        return solo;
+        if(leftPart[i]->Data() <= rightPart[j]->Data())
+        {
+            currentValues[k] = leftPart[i];
+            i++;
+        }
+        else
+        {
+            currentValues[k] = rightPart[j];
+            j++;
+        }
+        k++;
     }
-    else
+
+    while(i < leftPartSize)
     {
-        std::vector<std::shared_ptr<BarValueDouble>> solo(tabB.begin(), tabB.begin()+1);
+        currentValues[k] = leftPart[i];
+        i++;
+        k++;
+    }
 
-        std::vector<std::shared_ptr<BarValueDouble>> part(tabB.begin()+1, tabB.end());
-        auto fusionResult { fusion(tabA, part) };
-
-        solo.insert(solo.end(), fusionResult.begin(), fusionResult.end());
-        return solo;
+    while(j < rightPartSize)
+    {
+        currentValues[k] = rightPart[j];
+        j++;
+        k++;
     }
 }
 

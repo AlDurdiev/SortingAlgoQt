@@ -90,6 +90,9 @@ void MainWindow::LaunchAlgorithm()
         QObject::connect(algo_, &AlgoSorting::SolvingIsRunningEvent,
                          this, &MainWindow::SolvingIsRunningHandler);
 
+        QObject::connect(algo_, &AlgoSorting::refreshAllGUI,
+                         this, &MainWindow::RefreshAllGUIHandler);
+
         algo_->start();
     }
 }
@@ -130,6 +133,16 @@ void MainWindow::SwapUIEvent(BarValueDouble* from, int index)
 
     if(fromIteWidget != buttons_.end())
         ui->layoutBarGraph->insertWidget(index, *fromIteWidget);
+}
+
+void MainWindow::RefreshAllGUIHandler()
+{
+    const auto minValue { ui->spinMinValue->value() };
+    const auto maxValue { ui->spinMaxValue->value() };
+
+    auto vals { algo_->GetValues()};
+
+    UpdateView(vals, minValue, maxValue);
 }
 
 void MainWindow::SolvingIsRunningHandler(const bool& val)

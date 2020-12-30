@@ -34,6 +34,7 @@ public slots:
     void LaunchAlgorithm();
     void SwapUIEvent(BarValueDouble* from, int index);
     void SolvingIsRunningHandler(const bool& val);
+    void RefreshAllGUIHandler();
 
 };
 #endif // MAINWINDOW_H
