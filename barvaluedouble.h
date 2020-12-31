@@ -19,6 +19,7 @@ public:
     double Data();
     bool Selected();
     bool Done();
+    bool Compared();
 
     void SetData(const double& val);
 

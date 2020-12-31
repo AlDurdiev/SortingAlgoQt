@@ -5,14 +5,15 @@
 
 void AlgoSortingSelection::run()
 {
-    for(int i=0 ; i < currentValues.size() - 1 ; i++)
+    SetSolvingIsRunning(true);
+    for(auto i=0 ; i < currentValues.size() - 1 ; i++)
     {
         int indexMin = i;
         currentValues[i]->SetSelected(true);
 
         QThread::msleep(resolvingSpeedMs);
 
-        for(int y=i ; y < currentValues.size(); y++)
+        for(auto y=i ; y < currentValues.size(); y++)
         {
             currentValues[y]->SetComparedChanged(true);
 
@@ -39,6 +40,7 @@ void AlgoSortingSelection::run()
         currentValues[i]->SetSelected(false);
         currentValues[i]->SetDone(true);
     }
+    SetSolvingIsRunning(false);
 }
 
 

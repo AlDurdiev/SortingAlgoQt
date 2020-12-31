@@ -70,13 +70,13 @@ void MainWindow::LaunchAlgorithm()
             case 3 :
                 algo_ = new AlgoSortingMerge();
                 break;
-            /*case 4 :
+            case 4 :
+                algo_ = new AlgoSortingHeap();
                 break;
             case 5 :
+                algo_ = new AlgoSortingQuick();
                 break;
-            case 6 :
-                break;
-            */default:
+            default:
                 return;
                 break;
         }
@@ -113,6 +113,15 @@ void MainWindow::UpdateView(std::vector<std::shared_ptr<BarValueDouble>> values,
     {
         BarGraphButton* newBtn { new BarGraphButton(val) };
 
+        if(val->Done())
+            newBtn->DoneChanged(true);
+
+        if(val->Selected())
+            newBtn->SelectedChanged(true);
+
+        if(val->Compared())
+            newBtn->ComparedChanged(true);
+
         double calculatedHeight { (val->Data() / (maxVal - minVal)) * layoutHeight };
         if(calculatedHeight < 0)
             calculatedHeight = -calculatedHeight;
@@ -121,8 +130,6 @@ void MainWindow::UpdateView(std::vector<std::shared_ptr<BarValueDouble>> values,
 
         buttons_.push_back(newBtn);
         ui->layoutBarGraph->addWidget(newBtn);
-
-        int size = ui->layoutBarGraph->count();
     }
 }
 

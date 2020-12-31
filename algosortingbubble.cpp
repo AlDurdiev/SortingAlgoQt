@@ -5,6 +5,7 @@
 
 void AlgoSortingBubble::run()
 {
+    SetSolvingIsRunning(true);
     for(int i=currentValues.size()-1 ; i > 0 ; i--)
     {
         for(int y=0 ; y < i ; y++)
@@ -29,6 +30,7 @@ void AlgoSortingBubble::run()
         QThread::msleep(resolvingSpeedMs);
         currentValues[i]->SetDone(true);
     }
+    SetSolvingIsRunning(false);
 }
 
 #endif

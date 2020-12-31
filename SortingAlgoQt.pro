@@ -14,7 +14,9 @@ SOURCES += \
     AlgoSortingInsertion.cpp \
     BarGraphButton.cpp \
     algosortingbubble.cpp \
+    algosortingheap.cpp \
     algosortingmerge.cpp \
+    algosortingquick.cpp \
     algosortingselection.cpp \
     barvaluedouble.cpp \
     main.cpp \
@@ -23,8 +25,10 @@ SOURCES += \
 HEADERS += \
     algosorting.h \
     algosortingbubble.h \
+    algosortingheap.h \
     algosortinginsertion.h \
     algosortingmerge.h \
+    algosortingquick.h \
     algosortingselection.h \
     bargraphbutton.h \
     barvaluedouble.h \

@@ -24,6 +24,11 @@ bool BarValueDouble::Done()
 }
 
 
+bool BarValueDouble::Compared()
+{
+    return compared;
+}
+
 void BarValueDouble::SetData(const double& val)
 {
     data = val;

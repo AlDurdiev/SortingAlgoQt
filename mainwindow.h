@@ -7,6 +7,8 @@
 #include "algosortingselection.h"
 #include "algosortingbubble.h"
 #include "algosortingmerge.h"
+#include "algosortingheap.h"
+#include "algosortingquick.h"
 #include "bargraphbutton.h"
 #include <QString>
 

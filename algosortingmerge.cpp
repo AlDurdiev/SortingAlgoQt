@@ -5,10 +5,13 @@
 
 void AlgoSortingMerge::run()
 {
+    SetSolvingIsRunning(true);
     sortMerge(0, currentValues.size() - 1);
 
     for(auto & val : currentValues)
         val->SetDone(true);
+
+    SetSolvingIsRunning(false);
 }
 
 void AlgoSortingMerge::sortMerge(int beginIndex, int endIndex)
@@ -21,7 +24,6 @@ void AlgoSortingMerge::sortMerge(int beginIndex, int endIndex)
 
         for(int i=beginIndex ; i < endIndex ; i++)
             currentValues[i]->SetSelected(true);
-        emit refreshAllGUI();
 
         QThread::msleep(resolvingSpeedMs);
         merge(beginIndex, middleIndex, endIndex);
