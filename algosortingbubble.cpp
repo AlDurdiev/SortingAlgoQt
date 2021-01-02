@@ -22,14 +22,15 @@ void AlgoSortingBubble::run()
 
                 buffer->SetSelected(false);
 
-                emit swapBarGUI(&(*currentValues[y + 1]), y+1);
-                emit swapBarGUI(&(*currentValues[y]), y);
+                emit insertValueGUI(&(*currentValues[y + 1]), y+1);
+                emit insertValueGUI(&(*currentValues[y]), y);
             }
         }
 
         QThread::msleep(resolvingSpeedMs);
         currentValues[i]->SetDone(true);
     }
+    currentValues[0]->SetDone(true);
     SetSolvingIsRunning(false);
 }
 

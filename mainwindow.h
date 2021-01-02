@@ -34,7 +34,7 @@ private:
 public slots:
     void GenerateDatas();
     void LaunchAlgorithm();
-    void SwapUIEvent(BarValueDouble* from, int index);
+    void InsertValueGUIHandler(BarValueDouble* from, int index);
     void SolvingIsRunningHandler(const bool& val);
     void RefreshAllGUIHandler();
 

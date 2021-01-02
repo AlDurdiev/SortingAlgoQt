@@ -11,6 +11,7 @@ public:
 private :
     int solvePartition(int beginIndex, int endIndex);
     void solveAlgo(int beginIndex, int endIndex);
+    void swap(int index1, int index2);
 };
 
 #endif // ALGOSORTINGQUICK_H

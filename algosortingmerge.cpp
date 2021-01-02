@@ -9,7 +9,9 @@ void AlgoSortingMerge::run()
     sortMerge(0, currentValues.size() - 1);
 
     for(auto & val : currentValues)
+    {
         val->SetDone(true);
+    }
 
     SetSolvingIsRunning(false);
 }
@@ -29,7 +31,7 @@ void AlgoSortingMerge::sortMerge(int beginIndex, int endIndex)
         merge(beginIndex, middleIndex, endIndex);
         emit refreshAllGUI();
 
-        for(int i=beginIndex ; i < endIndex ; i++)
+        for(int i=beginIndex ; i <= endIndex ; i++)
             currentValues[i]->SetSelected(false);
     }
 }

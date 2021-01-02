@@ -84,8 +84,8 @@ void MainWindow::LaunchAlgorithm()
         algo_->SetValues(values);
 
 
-        QObject::connect(algo_, &AlgoSorting::swapBarGUI,
-                         this, &MainWindow::SwapUIEvent);
+        QObject::connect(algo_, &AlgoSorting::insertValueGUI,
+                         this, &MainWindow::InsertValueGUIHandler);
 
         QObject::connect(algo_, &AlgoSorting::SolvingIsRunningEvent,
                          this, &MainWindow::SolvingIsRunningHandler);
@@ -133,7 +133,7 @@ void MainWindow::UpdateView(std::vector<std::shared_ptr<BarValueDouble>> values,
     }
 }
 
-void MainWindow::SwapUIEvent(BarValueDouble* from, int index)
+void MainWindow::InsertValueGUIHandler(BarValueDouble* from, int index)
 {
     // insert
     auto fromIteWidget = std::find_if(buttons_.begin(), buttons_.end(), [&from](BarGraphButton* x){ return &(*x->Val()) == from ;});
@@ -141,6 +141,7 @@ void MainWindow::SwapUIEvent(BarValueDouble* from, int index)
     if(fromIteWidget != buttons_.end())
         ui->layoutBarGraph->insertWidget(index, *fromIteWidget);
 }
+
 
 void MainWindow::RefreshAllGUIHandler()
 {

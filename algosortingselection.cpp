@@ -30,8 +30,8 @@ void AlgoSortingSelection::run()
             currentValues[indexMin] = currentValues[i];
             currentValues[i] = buffer;
 
-            emit swapBarGUI(&(*currentValues[indexMin]), indexMin);
-            emit swapBarGUI(&(*currentValues[i]), i);
+            emit insertValueGUI(&(*currentValues[indexMin]), indexMin);
+            emit insertValueGUI(&(*currentValues[i]), i);
 
             currentValues[indexMin]->SetSelected(false);
 

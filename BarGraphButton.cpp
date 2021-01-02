@@ -22,6 +22,8 @@ void BarGraphButton::SelectedChanged(const bool& val)
 {
     if(val)
         this->setStyleSheet("QPushButton { background-color: red; }\n");
+    else
+        this->setStyleSheet("QPushButton { background-color: white; }\n");
 }
 
 void BarGraphButton::DoneChanged(const bool& val)
@@ -37,7 +39,7 @@ void BarGraphButton::ComparedChanged(const bool& val)
     if(val)
         this->setStyleSheet("QPushButton { background-color: blue; }\n");
     else
-        this->setStyleSheet("QPushButton { background-color: grey; }\n");
+        this->setStyleSheet("QPushButton { background-color: white; }\n");
 }
 
 std::shared_ptr<BarValueDouble> BarGraphButton::Val()

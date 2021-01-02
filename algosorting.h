@@ -30,7 +30,8 @@ class AlgoSorting : public QThread
         bool solvingIsRunning { false };
 
     signals:
-        void swapBarGUI(BarValueDouble* from, int index);
+        void insertValueGUI(BarValueDouble* from, int index);
+        void swapValuesGUI(BarValueDouble* val1, BarValueDouble* val2);
         void refreshAllGUI();
         void SolvingIsRunningEvent(const bool& val);
 };

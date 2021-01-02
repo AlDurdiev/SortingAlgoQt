@@ -6,7 +6,7 @@
 void AlgoSortingInsertion::run()
 {
     SetSolvingIsRunning(true);
-    currentValues[0]->SetDone(true);
+
     for(auto i = 1 ; i < currentValues.size() ; i++)
     {
         auto val = currentValues[i];
@@ -23,15 +23,19 @@ void AlgoSortingInsertion::run()
             currentValues[j] = currentValues[j - 1];
 
             currentValues[j - 1]->SetComparedChanged(false);
-            emit swapBarGUI(&(*currentValues[j]), j);
+            emit insertValueGUI(&(*currentValues[j]), j);
         }
 
-        currentValues[j] = val;
-        emit swapBarGUI(&(*val), j);
-
-        val->SetDone(true);
         val->SetSelected(false);
+
+        currentValues[j] = val;
+        emit insertValueGUI(&(*val), j);
+
     }
+
+    for(auto& val : currentValues)
+        val->SetDone(true);
+
     SetSolvingIsRunning(false);
 }
 
