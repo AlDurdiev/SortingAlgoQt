@@ -3,7 +3,7 @@
 
 #include "algosorting.h"
 
-void AlgoSorting::GenerateRandomValues(int nbValues, int minVal, int maxVal)
+void AlgoSorting::generateRandomValues(int nbValues, int minVal, int maxVal)
 {
     currentValues.clear();
 
@@ -16,24 +16,24 @@ void AlgoSorting::GenerateRandomValues(int nbValues, int minVal, int maxVal)
     }
 }
 
-void AlgoSorting::SetValues(std::vector<std::shared_ptr<BarValueDouble>> values)
+void AlgoSorting::setValues(std::vector<std::shared_ptr<BarValueDouble>> values)
 {
     currentValues = values;
 }
 
-std::vector<std::shared_ptr<BarValueDouble>> AlgoSorting::GetValues()
+std::vector<std::shared_ptr<BarValueDouble>> AlgoSorting::getValues()
 {
     return currentValues;
 }
 
-bool AlgoSorting::GetSolvingIsRunning()
+bool AlgoSorting::getSolvingIsRunning()
 {
     return solvingIsRunning;
 }
 
-void AlgoSorting::SetSolvingIsRunning(const bool &val)
+void AlgoSorting::setSolvingIsRunning(const bool &val)
 {
-    emit SolvingIsRunningEvent(val);
+    emit solvingIsRunningEvent(val);
 }
 
 #endif

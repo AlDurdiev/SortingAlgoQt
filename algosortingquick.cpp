@@ -2,14 +2,14 @@
 
 void AlgoSortingQuick::run()
 {
-    SetSolvingIsRunning(true);
+    setSolvingIsRunning(true);
 
     solveAlgo(0, currentValues.size()-1);
 
     for(auto &val : currentValues)
-        val->SetDone(true);
+        val->setDoneHandler(true);
 
-    SetSolvingIsRunning(false);
+    setSolvingIsRunning(false);
 }
 
 int AlgoSortingQuick::solvePartition(int beginIndex, int endIndex)
@@ -17,29 +17,28 @@ int AlgoSortingQuick::solvePartition(int beginIndex, int endIndex)
     int pivot { endIndex };
     int j { beginIndex - 1 };
 
-    currentValues[pivot]->SetSelected(true);
-    QThread::msleep(resolvingSpeedMs);
+    currentValues[pivot]->setSelectedHandler(true);
+    QThread::msleep(resolveSpeedMs);
 
     for(int i = beginIndex ; i < endIndex  ; i++)
     {
-        currentValues[i]->SetComparedChanged(true);
-        if(currentValues[i]->Data() <= currentValues[pivot]->Data())
+        currentValues[i]->setComparedHandler(true);
+        if(currentValues[i]->data() <= currentValues[pivot]->data())
         {
             j++;
-            currentValues[j]->SetComparedChanged(true);
+            currentValues[j]->setComparedHandler(true);
             swap(i, j);
-            currentValues[j]->SetComparedChanged(false);
+            currentValues[j]->setComparedHandler(false);
         }
-        currentValues[i]->SetComparedChanged(false);
+        currentValues[i]->setComparedHandler(false);
         QThread::msleep(compareSpeedMs);
     }
 
-    currentValues[pivot]->SetSelected(false);
-    currentValues[pivot]->SetDone(true);
+    currentValues[pivot]->setSelectedHandler(false);
+    currentValues[pivot]->setDoneHandler(true);
 
     swap(j + 1, pivot);
-
-    emit refreshAllGUI();
+    //emit refreshAllGUI();
 
     return (j + 1);
 }
@@ -59,6 +58,7 @@ void AlgoSortingQuick::swap(int index1, int index2)
 {
     if(index1 != index2)
     {
+        emit swapValuesEvent(&(*currentValues[index1]), &(*currentValues[index2]));
         auto buffer { currentValues[index1] };
         currentValues[index1] = currentValues[index2];
         currentValues[index2] = buffer;

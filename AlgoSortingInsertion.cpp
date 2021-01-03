@@ -5,38 +5,38 @@
 
 void AlgoSortingInsertion::run()
 {
-    SetSolvingIsRunning(true);
+    setSolvingIsRunning(true);
 
-    for(auto i = 1 ; i < currentValues.size() ; i++)
+    for(unsigned long i = 1 ; i < currentValues.size() ; i++)
     {
         auto val = currentValues[i];
-        val->SetSelected(true);
+        val->setSelectedHandler(true);
 
-        QThread::msleep(resolvingSpeedMs);
+        QThread::msleep(resolveSpeedMs);
 
         auto j = i;
-        for(; (j > 0) && (currentValues[j - 1]->Data() > val->Data()) ; j--)
+        for(; (j > 0) && (currentValues[j - 1]->data() > val->data()) ; j--)
         {
-            currentValues[j - 1]->SetComparedChanged(true);
+            currentValues[j - 1]->setComparedHandler(true);
 
             QThread::msleep(compareSpeedMs);
             currentValues[j] = currentValues[j - 1];
 
-            currentValues[j - 1]->SetComparedChanged(false);
-            emit insertValueGUI(&(*currentValues[j]), j);
+            currentValues[j - 1]->setComparedHandler(false);
+            emit insertValueEvent(&(*currentValues[j]), j);
         }
 
-        val->SetSelected(false);
+        val->setSelectedHandler(false);
 
         currentValues[j] = val;
-        emit insertValueGUI(&(*val), j);
+        emit insertValueEvent(&(*val), j);
 
     }
 
     for(auto& val : currentValues)
-        val->SetDone(true);
+        val->setDoneHandler(true);
 
-    SetSolvingIsRunning(false);
+    setSolvingIsRunning(false);
 }
 
 #endif

@@ -2,32 +2,32 @@
 
 void AlgoSortingHeap::run()
 {
-    SetSolvingIsRunning(true);
+    setSolvingIsRunning(true);
 
-    for(auto nbDone = 0 ; nbDone < currentValues.size() ; nbDone++ )
+    for(unsigned long nbDone = 0 ; nbDone < currentValues.size() ; nbDone++ )
     {
-        QThread::msleep(resolvingSpeedMs);
+        QThread::msleep(resolveSpeedMs);
 
         // Find biggest value by sorting the tree
         for(int i = currentValues.size() - 1 - nbDone ; i > 0 ; i--)
         {
-            int parentIndex { FindParentIndex(i) };
+            int parentIndex { findParentIndex(i) };
 
-            currentValues[i]->SetSelected(true);
-            currentValues[parentIndex]->SetComparedChanged(true);
+            currentValues[i]->setSelectedHandler(true);
+            currentValues[parentIndex]->setComparedHandler(true);
 
             QThread::msleep(compareSpeedMs);
 
-            currentValues[i]->SetSelected(false);
-            currentValues[parentIndex]->SetComparedChanged(false);
+            currentValues[i]->setSelectedHandler(false);
+            currentValues[parentIndex]->setComparedHandler(false);
 
-            if(!currentValues[i]->Done() && currentValues[parentIndex]->Data() <= currentValues[i]->Data())
+            if(!currentValues[i]->isDone() && currentValues[parentIndex]->data() <= currentValues[i]->data())
             {
                 // Swap with parent
                 auto buffer { currentValues[parentIndex] };
                 currentValues[parentIndex] = currentValues[i];
                 currentValues[i] = buffer;
-                emit refreshAllGUI();
+                emit refreshAllEvent();
             }
         }
 
@@ -37,15 +37,15 @@ void AlgoSortingHeap::run()
         currentValues[currentValues.size() - 1 - nbDone] = currentValues[0];
         currentValues[0] = buffer;
 
-        currentValues[currentValues.size() - 1 - nbDone]->SetDone(true);
+        currentValues[currentValues.size() - 1 - nbDone]->setDoneHandler(true);
 
-        emit refreshAllGUI();
+        emit refreshAllEvent();
     }
 
-    SetSolvingIsRunning(false);
+    setSolvingIsRunning(false);
 }
 
-int AlgoSortingHeap::FindParentIndex(int index)
+int AlgoSortingHeap::findParentIndex(int index)
 {
     if(index % 2 == 0)
         return ((index / 2) - 1);

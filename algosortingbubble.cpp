@@ -5,33 +5,33 @@
 
 void AlgoSortingBubble::run()
 {
-    SetSolvingIsRunning(true);
+    setSolvingIsRunning(true);
     for(int i=currentValues.size()-1 ; i > 0 ; i--)
     {
         for(int y=0 ; y < i ; y++)
         {
-            currentValues[y]->SetSelected(true);
+            currentValues[y]->setSelectedHandler(true);
             QThread::msleep(compareSpeedMs);
 
-            currentValues[y]->SetSelected(false);
-            if(currentValues[y + 1]->Data() < currentValues[y]->Data())
+            currentValues[y]->setSelectedHandler(false);
+            if(currentValues[y + 1]->data() < currentValues[y]->data())
             {
                 auto buffer { currentValues[y + 1] };
                 currentValues[y + 1] = currentValues[y];
                 currentValues[y] = buffer;
 
-                buffer->SetSelected(false);
+                buffer->setSelectedHandler(false);
 
-                emit insertValueGUI(&(*currentValues[y + 1]), y+1);
-                emit insertValueGUI(&(*currentValues[y]), y);
+                emit insertValueEvent(&(*currentValues[y + 1]), y+1);
+                emit insertValueEvent(&(*currentValues[y]), y);
             }
         }
 
-        QThread::msleep(resolvingSpeedMs);
-        currentValues[i]->SetDone(true);
+        QThread::msleep(resolveSpeedMs);
+        currentValues[i]->setDoneHandler(true);
     }
-    currentValues[0]->SetDone(true);
-    SetSolvingIsRunning(false);
+    currentValues[0]->setDoneHandler(true);
+    setSolvingIsRunning(false);
 }
 
 #endif

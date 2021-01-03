@@ -7,18 +7,18 @@
 BarGraphButton::BarGraphButton(std::shared_ptr<BarValueDouble>& val)
     : val_(val)
 {
-    QObject::connect(&(*val_), &BarValueDouble::valueSelectedChanged,
-                     this, &BarGraphButton::SelectedChanged);
+    QObject::connect(&(*val_), &BarValueDouble::selectedChangedEvent,
+                     this, &BarGraphButton::selectedChangedHandler);
 
-    QObject::connect(&(*val_), &BarValueDouble::valueDoneChanged,
-                     this, &BarGraphButton::DoneChanged);
+    QObject::connect(&(*val_), &BarValueDouble::doneChangedEvent,
+                     this, &BarGraphButton::doneChangedHandler);
 
-    QObject::connect(&(*val_), &BarValueDouble::valueComparedChanged,
-                     this, &BarGraphButton::ComparedChanged);
+    QObject::connect(&(*val_), &BarValueDouble::comparedChangedEvent,
+                     this, &BarGraphButton::comparedChangedHandler);
 }
 
 
-void BarGraphButton::SelectedChanged(const bool& val)
+void BarGraphButton::selectedChangedHandler(const bool& val)
 {
     if(val)
         this->setStyleSheet("QPushButton { background-color: red; }\n");
@@ -26,7 +26,7 @@ void BarGraphButton::SelectedChanged(const bool& val)
         this->setStyleSheet("QPushButton { background-color: white; }\n");
 }
 
-void BarGraphButton::DoneChanged(const bool& val)
+void BarGraphButton::doneChangedHandler(const bool& val)
 {
     if(val)
         this->setStyleSheet("QPushButton { background-color: grey; }\n");
@@ -34,7 +34,7 @@ void BarGraphButton::DoneChanged(const bool& val)
         this->setStyleSheet("QPushButton { background-color: white; }\n");
 }
 
-void BarGraphButton::ComparedChanged(const bool& val)
+void BarGraphButton::comparedChangedHandler(const bool& val)
 {
     if(val)
         this->setStyleSheet("QPushButton { background-color: blue; }\n");
@@ -42,7 +42,7 @@ void BarGraphButton::ComparedChanged(const bool& val)
         this->setStyleSheet("QPushButton { background-color: white; }\n");
 }
 
-std::shared_ptr<BarValueDouble> BarGraphButton::Val()
+std::shared_ptr<BarValueDouble> BarGraphButton::val()
 {
     return val_;
 }

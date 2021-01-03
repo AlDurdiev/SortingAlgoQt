@@ -4,61 +4,61 @@
 #include "barvaluedouble.h"
 
 BarValueDouble::BarValueDouble(double val)
-    : data(val)
+    : data_(val)
 {
 }
 
-double BarValueDouble::Data()
+double BarValueDouble::data()
 {
-    return data;
+    return data_;
 }
 
-bool BarValueDouble::Selected()
+bool BarValueDouble::isSelected()
 {
-    return selected;
+    return isSelected_;
 }
 
-bool BarValueDouble::Done()
+bool BarValueDouble::isDone()
 {
-    return done;
-}
-
-
-bool BarValueDouble::Compared()
-{
-    return compared;
-}
-
-void BarValueDouble::SetData(const double& val)
-{
-    data = val;
+    return isDone_;
 }
 
 
-void BarValueDouble::SetSelected(const bool& val)
+bool BarValueDouble::isCompared()
 {
-    if(val != selected)
+    return isCompared_;
+}
+
+void BarValueDouble::setData(const double& val)
+{
+    data_ = val;
+}
+
+
+void BarValueDouble::setSelectedHandler(const bool& val)
+{
+    if(val != isSelected_)
     {
-        selected = val;
-        emit valueSelectedChanged(val);
+        isSelected_ = val;
+        emit selectedChangedEvent(val);
     }
 }
 
-void BarValueDouble::SetDone(const bool& val)
+void BarValueDouble::setDoneHandler(const bool& val)
 {
-    if(val != done)
+    if(val != isDone_)
     {
-        done = val;
-        emit valueDoneChanged(val);
+        isDone_ = val;
+        emit doneChangedEvent(val);
     }
 }
 
-void BarValueDouble::SetComparedChanged(const bool& val)
+void BarValueDouble::setComparedHandler(const bool& val)
 {
-    if(val != compared)
+    if(val != isCompared_)
     {
-        compared = val;
-        emit valueComparedChanged(val);
+        isCompared_ = val;
+        emit comparedChangedEvent(val);
     }
 }
 

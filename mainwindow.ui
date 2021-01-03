@@ -31,8 +31,8 @@
      <rect>
       <x>10</x>
       <y>170</y>
-      <width>1189</width>
-      <height>449</height>
+      <width>1181</width>
+      <height>441</height>
      </rect>
     </property>
     <widget class="QWidget" name="horizontalLayoutWidget">
@@ -41,7 +41,7 @@
        <x>0</x>
        <y>0</y>
        <width>1181</width>
-       <height>431</height>
+       <height>441</height>
       </rect>
      </property>
      <layout class="QHBoxLayout" name="layoutBarGraph"/>

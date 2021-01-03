@@ -5,15 +5,15 @@
 
 void AlgoSortingMerge::run()
 {
-    SetSolvingIsRunning(true);
+    setSolvingIsRunning(true);
     sortMerge(0, currentValues.size() - 1);
 
     for(auto & val : currentValues)
     {
-        val->SetDone(true);
+        val->setDoneHandler(true);
     }
 
-    SetSolvingIsRunning(false);
+    setSolvingIsRunning(false);
 }
 
 void AlgoSortingMerge::sortMerge(int beginIndex, int endIndex)
@@ -25,14 +25,14 @@ void AlgoSortingMerge::sortMerge(int beginIndex, int endIndex)
         sortMerge(middleIndex + 1, endIndex);
 
         for(int i=beginIndex ; i < endIndex ; i++)
-            currentValues[i]->SetSelected(true);
+            currentValues[i]->setSelectedHandler(true);
 
-        QThread::msleep(resolvingSpeedMs);
+        QThread::msleep(resolveSpeedMs);
         merge(beginIndex, middleIndex, endIndex);
-        emit refreshAllGUI();
+        emit refreshAllEvent();
 
         for(int i=beginIndex ; i <= endIndex ; i++)
-            currentValues[i]->SetSelected(false);
+            currentValues[i]->setSelectedHandler(false);
     }
 }
 
@@ -56,7 +56,7 @@ void AlgoSortingMerge::merge(int beginIndex, int middleIndex, int endIndex)
 
     while(i < leftPartSize && j < rightPartSize)
     {
-        if(leftPart[i]->Data() <= rightPart[j]->Data())
+        if(leftPart[i]->data() <= rightPart[j]->data())
         {
             currentValues[k] = leftPart[i];
             i++;
