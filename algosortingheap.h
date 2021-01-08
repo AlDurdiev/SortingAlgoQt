@@ -23,7 +23,7 @@ private:
      * @brief Find parent "node" index
      * @param index Index of the current node.
      * @return Parent index found.
-     * Private method which find parent "node" index from "node" index if we considere our tab like an binary tree.
+     * Private method which find parent "node" index from "node" index if we considere our array like an binary tree.
      */
     int findParentIndex(int index);
 

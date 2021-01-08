@@ -30,8 +30,8 @@ int AlgoSortingQuick::solvePartition(int beginIndex, int endIndex)
             swap(i, j);
             currentValues[j]->setComparedHandler(false);
         }
-        currentValues[i]->setComparedHandler(false);
         QThread::msleep(compareSpeedMs);
+        currentValues[i]->setComparedHandler(false);
     }
 
     currentValues[pivot]->setSelectedHandler(false);
